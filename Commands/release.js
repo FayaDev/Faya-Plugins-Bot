@@ -21,7 +21,7 @@ module.exports = {
             .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
             .setTitle(plugin.replace('_', ' '))
             .setURL(url)
-            .setDescription(announcement)
+            .setDescription(`**${announcement}**`)
             .setImage(image)
 
         message.delete();
