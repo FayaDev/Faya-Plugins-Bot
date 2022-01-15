@@ -33,6 +33,8 @@ client.on('messageCreate', message => {
         client.commands.get('suggest').execute(message, args);
     }else if (command == 'resuggest'){
         client.commands.get('resuggest').execute(message, args);
+    }else if (command == 'release'){
+        client.commands.get('release').execute(message, args);
     }else if (command == 'bug'){
         client.commands.get('bug').execute(message, args);
     }
