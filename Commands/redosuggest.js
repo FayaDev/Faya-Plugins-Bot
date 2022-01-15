@@ -1,7 +1,7 @@
 const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'resuggest',
+    name: 'redosuggest',
     execute(message, args){
         if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot) return message.channel.send(`${message.member}, you are not allowed to perform this action.`);
         let suggestion = args.slice(1).join(" ");

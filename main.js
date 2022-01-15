@@ -31,12 +31,14 @@ client.on('messageCreate', message => {
         client.commands.get('ban').execute(message, args);
     }else if (command == 'suggest'){
         client.commands.get('suggest').execute(message, args);
-    }else if (command == 'resuggest'){
-        client.commands.get('resuggest').execute(message, args);
+    }else if (command == 'redosuggest'){
+        client.commands.get('redosuggest').execute(message, args);
     }else if (command == 'release'){
         client.commands.get('release').execute(message, args);
-    }else if (command == 'bug'){
-        client.commands.get('bug').execute(message, args);
+    }else if (command == 'issue'){
+        client.commands.get('issue').execute(message, args);
+    }else if (command == 'redoissue'){
+        client.commands.get('redoissue').execute(message, args);
     }
 })
 
