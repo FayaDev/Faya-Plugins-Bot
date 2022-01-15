@@ -39,6 +39,8 @@ client.on('messageCreate', message => {
         client.commands.get('issue').execute(message, args);
     }else if (command == 'redoissue'){
         client.commands.get('redoissue').execute(message, args);
+    }else if (command == 'say'){
+        client.commands.get('say').execute(message, args);
     }
 })
 
