@@ -33,6 +33,8 @@ client.on('messageCreate', message => {
 
     if (command === 'ping'){
         client.commands.get('ping').execute(message, args);
+    } else if (command == 'help'){
+        client.commands.get('help').execute(message, args);
     } else if (command == 'kick'){
         client.commands.get('kick').execute(message, args);
     } else if (command == 'ban'){
@@ -41,8 +43,8 @@ client.on('messageCreate', message => {
         client.commands.get('suggest').execute(message, args);
     }else if (command == 'redosuggest'){
         client.commands.get('redosuggest').execute(message, args);
-    }else if (command == 'release'){
-        client.commands.get('release').execute(message, args);
+    }else if (command == 'plugin'){
+        client.commands.get('plugin').execute(message, args);
     }else if (command == 'issue'){
         client.commands.get('issue').execute(message, args);
     }else if (command == 'redoissue'){
