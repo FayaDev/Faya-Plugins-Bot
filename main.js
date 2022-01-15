@@ -1,13 +1,21 @@
 console.log("[Yubu]: Loading...");
 
+const { channel } = require('diagnostics_channel');
 const Discord = require('discord.js');
 const fs = require('fs');
+const { measureMemory } = require('vm');
 
 require('dotenv').config();
 const intents = new Discord.Intents(32767);
 
 const client = new Discord.Client({ intents} );
-client.on('ready', () => { console.log("[Yubu]: Yubu is online!"); })
+client.on('ready', () => { 
+    console.log("[Yubu]: Yubu is online!"); 
+    
+    memberCount(client)
+})
+
+const memberCount = require('./member-count')
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
