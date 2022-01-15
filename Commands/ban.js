@@ -6,7 +6,7 @@ module.exports = {
     execute(message, args){
         if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS) || message.author.bot) return message.channel.send(`${message.member}, you are not allowed to perform this action.`);
         
-        const member = message.mentions.members.first();
+        const member = message.mentions.members.user.id;
         let reason = args.slice(1).join(" ");
 
         if (!member) return message.reply("You must enter a user!");
@@ -17,7 +17,7 @@ module.exports = {
             .setColor('#B22222')
             .addFields(
                 { name: 'Action', value: 'Ban', inline: true },
-                { name: 'Target', value: member.toString(), inline: true },
+                { name: 'Target', value: member, inline: true },
                 { name: 'Reason', value: reason, inline: true },
             )	        
 
