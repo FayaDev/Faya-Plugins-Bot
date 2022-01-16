@@ -13,7 +13,7 @@ module.exports = {
             .addField("3) !issue", "> !issue [issue]")
             .addField("4) !kick", "> !kick [member]")
             .addField("5) !ban", "> !ban [member] (reason)")
-            .addField("6) !plugin", "> !release [name] [url] [image url] [description]")
+            .addField("6) !plugin", "> !plugin [name] [url] [image url] [description]")
 
         message.channel.send({ embeds: [helpEmbed] });
     }
