@@ -1,9 +1,7 @@
 console.log("[Yubu]: Loading...");
 
-const { channel } = require('diagnostics_channel');
 const Discord = require('discord.js');
 const fs = require('fs');
-const { measureMemory } = require('vm');
 
 require('dotenv').config();
 const intents = new Discord.Intents(32767);
@@ -15,7 +13,7 @@ client.on('ready', () => {
     memberCount(client)
 })
 
-const memberCount = require('./member-count')
+const memberCount = require('./Events/member-count')
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
