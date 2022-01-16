@@ -51,6 +51,8 @@ client.on('messageCreate', message => {
         client.commands.get('plugin').execute(message, args);
     }else if (command == 'say'){
         client.commands.get('say').execute(message, args);
+    }else if (command == 'sayembed'){
+        client.commands.get('sayembed').execute(message, args);
     }
 })
 
