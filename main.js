@@ -41,14 +41,14 @@ client.on('messageCreate', message => {
         client.commands.get('ban').execute(message, args);
     }else if (command == 'suggest'){
         client.commands.get('suggest').execute(message, args);
-    }else if (command == 'redosuggest'){
-        client.commands.get('redosuggest').execute(message, args);
-    }else if (command == 'plugin'){
-        client.commands.get('plugin').execute(message, args);
+    }else if (command == 'resuggest'){
+        client.commands.get('resuggest').execute(message, args);
     }else if (command == 'issue'){
         client.commands.get('issue').execute(message, args);
-    }else if (command == 'redoissue'){
-        client.commands.get('redoissue').execute(message, args);
+    }else if (command == 'reissue'){
+        client.commands.get('reissue').execute(message, args);
+    }else if (command == 'plugin'){
+        client.commands.get('plugin').execute(message, args);
     }else if (command == 'say'){
         client.commands.get('say').execute(message, args);
     }

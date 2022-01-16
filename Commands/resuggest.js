@@ -1,23 +1,24 @@
 const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'redoissue',
+    name: 'resuggest',
     execute(message, args){
         if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot) return message.channel.send(`${message.member}, you are not allowed to perform this action.`);
-        let issue = args.slice(1).join(" ");
+        let suggestion = args.slice(1).join(" ");
         const member = message.mentions.members.first();
 
         if (!member) return message.reply("Enter a member!");
-        if (!issue) return message.reply("Enter an issue to redo!");
+        if (!suggestion) return message.reply("Enter a suggestion to redo!");
 
-        const issueEmbed = new MessageEmbed()
+        const suggestEmbed = new MessageEmbed()
             .setAuthor({ name: member.user.tag.toString(), iconURL: member.displayAvatarURL() })
-            .setColor("DARK_RED")
-            .setTitle("Issue")
-            .setDescription(issue)
+            .setTitle("Suggestion")
+            .setDescription(suggestion)
 
         message.delete();
 
-        message.channel.send({ embeds: [issueEmbed] });
-        }
+        message.channel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
+            embedMessage.react('👍'); embedMessage.react('👎'); 
+        });
     }
+}
