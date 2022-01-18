@@ -53,6 +53,8 @@ client.on('messageCreate', message => {
         client.commands.get('sayembed').execute(message, args);
     }else if (command == 'acceptsuggestion'){
         client.commands.get('acceptsuggestion').execute(message, args);
+    }else if (command == 'denysuggestion'){
+        client.commands.get('denysuggestion').execute(message, args);
     }
 })
 
