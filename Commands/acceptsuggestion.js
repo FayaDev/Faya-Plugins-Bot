@@ -21,9 +21,6 @@ module.exports = {
             .setColor("DARK_GREEN")
 
 
-        //const user = await client.users.cache.find((u) => u.tag === data.author.name);
-
-        //user.send("Your suggestion has been accepted by a moderator!");
         message.channel.send({ embeds: [acceptEmbed] });
     }
 }
