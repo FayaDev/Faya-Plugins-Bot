@@ -51,6 +51,8 @@ client.on('messageCreate', message => {
         client.commands.get('say').execute(message, args);
     }else if (command == 'sayembed'){
         client.commands.get('sayembed').execute(message, args);
+    }else if (command == 'acceptsuggestion'){
+        client.commands.get('acceptsuggestion').execute(message, args);
     }
 })
 
