@@ -20,6 +20,7 @@ module.exports = {
             .addField("__Status:__", "✅ Accepted")
             .setColor("DARK_GREEN")
 
+        message.delete();
 
         message.channel.send({ embeds: [acceptEmbed] });
     }

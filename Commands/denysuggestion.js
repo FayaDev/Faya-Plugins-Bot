@@ -20,6 +20,7 @@ module.exports = {
             .addField("__Status:__", "⛔ Denied")
             .setColor("DARK_RED")
 
+        message.delete();
             
         message.channel.send({ embeds: [acceptEmbed] });
     }

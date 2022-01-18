@@ -9,7 +9,7 @@ module.exports = {
             .setTitle("Help")
             .setDescription("**A list of all the commands available**")   
             .addField("1) !ping", "> !ping")
-            .addField("2) !suggest", "> !suggest [suggestion]")
+            .addField("2) !suggest", "> !suggest [message ID]")
             .addField("3) !issue", "> !issue [issue]")
             .addField("4) !kick", "> !kick [member]")
             .addField("5) !ban", "> !ban [member] (reason)")

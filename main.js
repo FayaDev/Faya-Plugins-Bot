@@ -6,7 +6,7 @@ const fs = require('fs');
 require('dotenv').config();
 const intents = new Discord.Intents(32767);
 
-const client = new Discord.Client({ intents} );
+const client = new Discord.Client({ intents });
 client.on('ready', () => { 
     console.log("[Yubu]: Yubu is online!"); 
     
@@ -37,10 +37,6 @@ client.on('messageCreate', message => {
         client.commands.get('kick').execute(message, args);
     } else if (command == 'ban'){
         client.commands.get('ban').execute(message, args);
-    }else if (command == 'suggest'){
-        client.commands.get('suggest').execute(message, args);
-    }else if (command == 'resuggest'){
-        client.commands.get('resuggest').execute(message, args);
     }else if (command == 'issue'){
         client.commands.get('issue').execute(message, args);
     }else if (command == 'reissue'){
@@ -51,6 +47,8 @@ client.on('messageCreate', message => {
         client.commands.get('say').execute(message, args);
     }else if (command == 'sayembed'){
         client.commands.get('sayembed').execute(message, args);
+    }else if (command == 'suggest'){
+        client.commands.get('suggest').execute(message, args);
     }else if (command == 'acceptsuggestion'){
         client.commands.get('acceptsuggestion').execute(message, args);
     }else if (command == 'denysuggestion'){
