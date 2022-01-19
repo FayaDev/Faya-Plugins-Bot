@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'help',
     description: 'sends a message with all the features',
-    execute(message, client){
+    execute(message){
         
         const helpEmbed = new MessageEmbed()
             .setTitle("Help")

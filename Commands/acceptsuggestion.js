@@ -3,7 +3,7 @@ const { Permissions, MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'acceptsuggestion',
     async execute(message, args){
-        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
+        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
     
         const messageId = args[0];
         const suggestionChannel = message.guild.channels.cache.get('930206093676781569');

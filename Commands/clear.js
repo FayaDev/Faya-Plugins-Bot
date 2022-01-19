@@ -4,7 +4,7 @@ module.exports = {
     name: 'clear',
     description: 'deletes the entered amount of messages',
     async execute(message, args){
-        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
+        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
         
         if (!args[0]) return message.reply("You must enter an amount to clear!");
         if (isNaN(args[0])) return message.reply("You must enter a number!");

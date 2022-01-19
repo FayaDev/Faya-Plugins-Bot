@@ -3,7 +3,7 @@ const { Permissions, MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'reissue',
     execute(message, args){
-        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
+        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
         let issue = args.slice(1).join(" ");
         const member = message.mentions.members.first();
 
