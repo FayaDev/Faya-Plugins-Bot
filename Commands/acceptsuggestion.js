@@ -13,6 +13,7 @@ module.exports = {
 
             if (!messageId) return message.reply("You need to enter the ID of the suggestion.");
             if (!data) return message.reply("No embed has been found.");
+            if (!suggestedEmbed) return message.reply("No embed has been found.");
 
             const acceptEmbed = new MessageEmbed()
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})

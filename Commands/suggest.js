@@ -12,6 +12,7 @@ module.exports = {
             const suggestion = await suggestionDumpChannel.messages.fetch(messageId);
 
             if (!messageId) return message.reply("You need to enter the ID of the suggestion.");
+            if (!suggestion) return message.reply("Couldn't find any suggestion")
 
             message.delete();
 
