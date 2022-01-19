@@ -11,7 +11,7 @@ module.exports = {
 
         const sayEmbed = new MessageEmbed()
         .setDescription(content)
-
+        
         message.channel.send({ embeds: [sayEmbed] });
     }
 }
