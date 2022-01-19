@@ -13,7 +13,7 @@ module.exports = {
         if (args[0] < 1) return message.reply("You must delete atleast 1 message!");
 
         message.channel.bulkDelete(args[0]).then(messages => {
-            message.channel.send(`Deleted ${messages.size} messages.`);
+            message.channel.send(`Deleted ${messages.size} messages.`).then(msg => {setTimeout(() => msg.delete(), 3000)});
         }).catch(e => console.log(e));
     }
 }
