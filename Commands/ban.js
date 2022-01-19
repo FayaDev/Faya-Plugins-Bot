@@ -9,8 +9,8 @@ module.exports = {
         const member = message.mentions.members.user.id;
         let reason = args.slice(1).join(" ");
 
-        if (!member) return message.reply("You must enter a user!");
-        if (!reason) reason = "No reason given";
+        if (!member) return message.reply("You must enter a user.");
+        if (!reason) reason = "No reason given.";
 
         const banEmbed = new MessageEmbed()
             .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })

@@ -7,8 +7,8 @@ module.exports = {
         let suggestion = args.slice(1).join(" ");
         const member = message.mentions.members.first();
 
-        if (!member) return message.reply("Enter a member!");
-        if (!suggestion) return message.reply("Enter a suggestion to redo!");
+        if (!member) return message.reply("Enter a member.");
+        if (!suggestion) return message.reply("Enter a suggestion to redo.");
 
         const suggestEmbed = new MessageEmbed()
             .setAuthor({ name: member.user.tag.toString(), iconURL: member.displayAvatarURL() })

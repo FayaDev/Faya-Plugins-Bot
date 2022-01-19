@@ -12,10 +12,10 @@ module.exports = {
         let image = args[2];
         let details = args.slice(3).join(" ");
 
-        if (!plugin) return message.reply("You must enter a plugin name!");
-        if (!url) return message.reply("You must enter a URL!");
-        if (!image) return message.reply("You must enter an image link!");
-        if (!details) return message.reply("You must enter an announcement!");
+        if (!plugin) return message.reply("You must enter a plugin name.");
+        if (!url) return message.reply("You must enter a URL.");
+        if (!image) return message.reply("You must enter an image link.");
+        if (!details) return message.reply("You must enter an announcement.");
 
         const pluginEmbed = new MessageEmbed()
             .setTitle(plugin)

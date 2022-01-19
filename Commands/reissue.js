@@ -7,8 +7,8 @@ module.exports = {
         let issue = args.slice(1).join(" ");
         const member = message.mentions.members.first();
 
-        if (!member) return message.reply("Enter a member!");
-        if (!issue) return message.reply("Enter an issue to redo!");
+        if (!member) return message.reply("Enter a member.");
+        if (!issue) return message.reply("Enter an issue to redo.");
 
         const issueEmbed = new MessageEmbed()
             .setAuthor({ name: member.user.tag.toString(), iconURL: member.displayAvatarURL() })
