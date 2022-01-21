@@ -3,7 +3,7 @@ const { Permissions, MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'plugin',
     description: 'Shows a plugin\'s details',
-    usage: '[plugin] [url] [image url] [description]',
+    usage: '{plugin} [url] [image url] [description]',
     execute(message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
