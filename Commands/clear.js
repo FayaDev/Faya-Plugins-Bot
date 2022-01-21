@@ -1,5 +1,5 @@
 const { Permissions } = require('discord.js')
-
+const description = "";
 module.exports = {
     name: 'clear',
     description: 'deletes the entered amount of messages',

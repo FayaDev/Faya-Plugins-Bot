@@ -1,3 +1,5 @@
+const clear = require("../Commands/clear");
+
 module.exports = client => {
 
     const updateMembers = (guild) => {
@@ -5,7 +7,6 @@ module.exports = client => {
         let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
         channel.setName(`Members: ${humans}`)
         console.log(`[Yubu]: Detected ${humans} members`);
-        
     }
 
     client.on('guildMemberAdd', (member) => updateMembers(member.guild));

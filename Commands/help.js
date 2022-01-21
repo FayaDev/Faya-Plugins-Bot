@@ -14,7 +14,7 @@ module.exports = {
             let commandNumber = 0;
             for (const file in commandFiles){
                 const fileFriendlyName = commandFiles[commandNumber].replace(".js", "");
-                helpEmbed.addField(`${commandNumber + 1}) !${fileFriendlyName}`, '_ _');
+                helpEmbed.addField(`${commandNumber + 1}) !${fileFriendlyName}`, file.description);
                 commandNumber++;
             }
 

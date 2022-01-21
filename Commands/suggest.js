@@ -2,6 +2,7 @@ const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'suggest',
+    description: 'Sends a to the suggestion channel',
     async execute(message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
