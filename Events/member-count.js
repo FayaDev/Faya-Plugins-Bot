@@ -3,7 +3,7 @@ module.exports = client => {
     const updateMembers = (guild) => {
         const channel = guild.channels.cache.get('931958980064997376');
         let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-        //channel.setName(`Members: ${humans}`)
+        channel.setName(`Members: ${humans}`)
         console.log(`[Yubu]: Detected ${humans} members`);
     }
 
