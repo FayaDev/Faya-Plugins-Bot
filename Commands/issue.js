@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'issue',
     description: 'creates an issue embed',
+    usage: '[issue]',
     execute(message, args){
         try {
             

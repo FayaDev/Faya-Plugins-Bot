@@ -3,6 +3,7 @@ const { Message, Permissions, MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'kick',
     description: 'kicks a member.',
+    usage: '[user] (reason)',
     execute(message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) return message.reply("You don't have the required permissions to perform this action.");

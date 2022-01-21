@@ -52,7 +52,7 @@ client.on('messageCreate', message => {
     console.log(`[Yubu]: ${message.author.tag} used ${message.content}`);
 
     const logChannel = message.guild.channels.cache.get('933323927613222943');
-    logChannel.send(`${message.author.tag} used ${message.content}`);
+    //logChannel.send(`${message.author.tag} used ${message.content}`);
 })
 
 client.login(process.env.DISCORD_BOT_TOKEN);
