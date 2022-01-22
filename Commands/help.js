@@ -20,8 +20,9 @@ module.exports = {
                 helpEmbed.addField(`${commandNumber + 1}) !${file}`, `> !${file} ${fileData.usage}`);
                 commandNumber++;
             }
-
+            message.delete();
             message.channel.send({ embeds: [helpEmbed] });
+            message.channel.send("```\n[ ] = This parameter is required\n{ } = Words must be separated with an underscore\n( ) = This parameter is optional\n```")
         } catch (error) {
             console.log(error);
         }
