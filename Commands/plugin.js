@@ -8,7 +8,6 @@ module.exports = {
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
         
-            const member = message.mentions.members.first();
             let plugin = args[0].replaceAll('_', ' ');
             let url = args[1];
             let image = args[2];
