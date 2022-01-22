@@ -6,10 +6,10 @@ const fs = require('fs');
 require('dotenv').config();
 const intents = new Discord.Intents(32767);
 
+
 const client = new Discord.Client({ intents });
 client.on('ready', () => { 
     memberCount(client)
-
     console.log("[Yubu]: Yubu is online!"); 
 })
 
@@ -40,6 +40,7 @@ client.on('messageCreate', message => {
 
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
     const command = args.shift().toLowerCase();
+    
 
     for (const file of commandFiles){
         const fileNoExtension = file.slice(0, -3);
@@ -50,9 +51,11 @@ client.on('messageCreate', message => {
     }
 
     console.log(`[Yubu]: ${message.author.tag} used ${message.content}`);
-
-    const logChannel = message.guild.channels.cache.get('933323927613222943');
-    logChannel.send(`${message.author.tag} used ${message.content}`);
+    
+    const logChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('log'));
+    if (logChannel){
+        logChannel.send(`${message.author.tag} used ${message.content}`);
+    }
 })
 
 client.login(process.env.DISCORD_BOT_TOKEN);
