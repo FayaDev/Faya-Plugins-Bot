@@ -41,7 +41,6 @@ client.on('messageCreate', message => {
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
     const command = args.shift().toLowerCase();
     
-
     for (const file of commandFiles){
         const fileNoExtension = file.slice(0, -3);
 
@@ -50,11 +49,11 @@ client.on('messageCreate', message => {
         }
     }
 
-    console.log(`[Yubu]: ${message.author.tag} used ${message.content}`);
+    console.log(`[Yubu]: ${message.author.tag} used !${command}`);
     
     const logChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('log'));
     if (logChannel){
-        logChannel.send(`${message.author.tag} used ${message.content}`);
+        logChannel.send(`${message.author.tag} used !${command}`);
     }
 })
 
