@@ -1,26 +1,32 @@
-const { MessageEmbed } = require("discord.js");
+const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'issue',
-    description: 'creates an issue embed',
-    usage: '[issue]',
-    execute(message, args){
-        try {
-            
-            let issue = args.slice(0).join(" ");
+    description: 'Sends an issue to the issue channel',
+    usage: '[message ID]',
+    async execute(message, args){
+        try{
+            if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
+
+            const messageId = args[0];
+            const issueDumpChannel = message.guild.channels.cache.get('934399462703505458');
+            const issueChannel = message.guild.channels.cache.get('927278294037057557');
+            const issue = await issueDumpChannel.messages.fetch(messageId);
+
+            if (!messageId) return message.reply("You need to enter the ID of the issue.");
             if (!issue) return message.reply("Enter an issue.");
 
             const issueEmbed = new MessageEmbed()
-                .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
-                .setColor("DARK_RED")
+                .setAuthor({ name: issue.author.tag, iconURL: issue.author.displayAvatarURL() })
                 .setTitle("Issue")
-                .setDescription(issue)
+                .setDescription(issue.content)
+                .setColor("DARK_RED")
 
             message.delete();
-
-            message.channel.send({ embeds: [issueEmbed] });
+            
+            issueChannel.send({ embeds: [issueEmbed] }); 
         } catch (error) {
-            console.log(error);   
+            console.log(error);
         }
     }
 }
