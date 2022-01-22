@@ -22,7 +22,7 @@ module.exports = {
                 .setAuthor({ name: suggestion.author.tag, iconURL: suggestion.author.displayAvatarURL() })
                 .setTitle("Suggestion")
                 .setDescription(suggestion.content)
-                .setColor("BLUE")
+                .setColor("DARK_GOLD")
 
             suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
                 embedMessage.react('👍'); embedMessage.react('👎'); 
