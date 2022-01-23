@@ -1,30 +1,36 @@
-const { Discord, MessageActionRow, MessageSelectMenu, Message } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, Permissions } = require('discord.js');
 
 module.exports = {
     name: 'roleselect',
     usage: '',
     async execute(message){
         try{
+            if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
+
+            const channel = message.guild.channels.cache.get('934895829100167168');
+
             const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
                 .setCustomId("first_menu")
                 .setPlaceholder("Roles")
+                .setMinValues(0)
+                .setMaxValues(3)
                 .addOptions([
                     {
                         label: "📯 - Content Notified",
                         description: "A notification for public releases and important matters.",
-                        value: "first",
+                        value: "931912609970655252",
                     },
                     {
                         label: "🔔 - Early Access Notified",
                         description: "A notification for early access releases",
-                        value: "second",
+                        value: "934848675878928404",
                     },
                     {
                         label: "🗳️ - Suggestion Notified",
                         description: "A notification for every 5 suggestions.",
-                        value: "third",
+                        value: "934848628227444776",
                     },
                 ])
             )
@@ -35,30 +41,28 @@ module.exports = {
                 componentType: "SELECT_MENU"
             })
     
+
             collector.on('collect', async (collected) => {
-                const value = collected.values[0];
-    
-                let roleArray;
-    
-                let contentNotifiedRole = message.member.guild.roles.cache.find(role => role.id === "931912609970655252");
-                let earlyAccessRole = message.member.guild.roles.cache.find(role => role.id === "934848675878928404");
-                let suggestionNotifiedRole = message.member.guild.roles.cache.find(role => role.id === "934848628227444776");
-    
-                if (value === "first"){
-                    collected.reply({ content: "You selected Content Notified", ephemeral:true});
-    
-                    message.member.roles.add(contentNotifiedRole)
+                const { values } = collected;
+
+                const component = collected.component;
+
+                // Get all options that aren't selected
+                const removed = component.options.filter((option) => {
+                    return !values.includes(option.value);
+                })
+                
+                // Get selected options
+                for (const id of values) {
+                    message.member.roles.add(id);
                 }
-                else if (value === "second"){
-                    collected.reply({ content: "You selected Early Access", ephemeral:true});
-    
-                    message.member.roles.add(earlyAccessRole)
+
+                // Get non-selected options
+                for (const id of removed) {
+                    message.member.roles.remove(id.value);
                 }
-                else if (value === "third"){
-                    collected.reply({ content: "You selected Suggestion Notified", ephemeral:true});
-    
-                    message.member.roles.add(suggestionNotifiedRole)
-                }
+
+                collected.reply({ content: "Updated roles.", ephemeral: true });
             })
         }
         catch (error) {
