@@ -48,13 +48,6 @@ client.on('messageCreate', message => {
             client.commands.get(fileNoExtension).execute(message, args);
         }
     }
-
-    console.log(`[Yubu]: ${message.author.tag} used !${command}`);
-    
-    const logChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('log'));
-    if (logChannel){
-        logChannel.send(`${message.author.tag} used !${command}`);
-    }
 })
 
 client.login('OTMwMTk3MjM5NDc1ODY3NjQ5.YdyXsA.ncHNL-jNqXKNAyCVSmZr3Notn0s');
