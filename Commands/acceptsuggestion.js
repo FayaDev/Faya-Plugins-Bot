@@ -3,13 +3,16 @@ const { Permissions, MessageEmbed, CategoryChannel } = require("discord.js");
 module.exports = {
     name: 'acceptsuggestion',
     description: 'Accepts a suggestion',
-    usage: '[message ID]',
+    usage: '[message ID] (note)',
     async execute(message, args){
         try{
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
     
             const messageId = args[0];
+            const note = args.slice(1).join(" ")
+
             const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
+            const outcomeChannel = message.guild.channels.cache.get('933071258013274132');
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageId);
             const data = suggestedEmbed.embeds[0];
 
@@ -24,9 +27,13 @@ module.exports = {
                 .addField("__Status:__", "✅ Accepted")
                 .setColor("DARK_GREEN")
 
+            if (note){
+                acceptEmbed.addField("__Note:__", note)
+            }
+
             message.delete();
 
-            message.channel.send({ embeds: [acceptEmbed] });
+            outcomeChannel.send({ embeds: [acceptEmbed] });
         }
         catch (error) {
             console.log(error);

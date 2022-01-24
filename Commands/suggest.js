@@ -9,6 +9,7 @@ module.exports = {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
 
             const messageId = args[0];
+
             const suggestionDumpChannel = message.guild.channels.cache.get('933084536714174544');
             const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
             const suggestion = await suggestionDumpChannel.messages.fetch(messageId);
@@ -23,7 +24,7 @@ module.exports = {
                 .setTitle("Suggestion")
                 .setDescription(suggestion.content)
                 .setColor("#337fd5")
-
+    
             suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
                 embedMessage.react('👍'); embedMessage.react('👎'); 
             });
