@@ -21,9 +21,9 @@ module.exports = {
                 .setDescription(`**${plugin} ${version}**`)
                 .addField("_ _", changes)
 
-            if (changelogChannel){
-                changelogChannel.send({ embeds: [changelogEmbed] });
-            }
+            message.delete();
+            message.channel.send({ embeds: [changelogEmbed] });
+
         } catch (error) {
             console.log(error);
         }
