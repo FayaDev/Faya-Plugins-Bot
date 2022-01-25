@@ -30,7 +30,7 @@ module.exports = {
                 denyEmbed.addField("__Note:__", note)
             }
             message.delete();
-            
+            suggestedEmbed.delete();
             outcomeChannel.send({ embeds: [denyEmbed] });
         } catch (error) {
             console.log(error);

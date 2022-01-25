@@ -31,6 +31,7 @@ module.exports = {
                 acceptEmbed.addField("__Note:__", note)
             }
 
+            suggestedEmbed.delete();
             message.delete();
 
             outcomeChannel.send({ embeds: [acceptEmbed] });
