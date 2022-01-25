@@ -9,7 +9,7 @@ module.exports = {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
     
             const messageId = args[0];
-            const issueChannel = message.guild.channels.cache.get('934403719892721724');
+            const issueChannel = message.guild.channels.cache.get('935537048901808138');
             const outcomeChannel = message.guild.channels.cache.get('934399552696492052');
             const solvedIssueEmbed = await issueChannel.messages.fetch(messageId);
             const data = solvedIssueEmbed.embeds[0];

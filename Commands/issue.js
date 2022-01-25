@@ -10,7 +10,7 @@ module.exports = {
 
             const messageId = args[0];
             const issueDumpChannel = message.guild.channels.cache.get('934399462703505458');
-            const issueChannel = message.guild.channels.cache.get('934403719892721724');
+            const issueChannel = message.guild.channels.cache.get('935537048901808138');
             const issue = await issueDumpChannel.messages.fetch(messageId);
 
             if (!messageId) return message.reply("You need to enter the ID of the issue.");
