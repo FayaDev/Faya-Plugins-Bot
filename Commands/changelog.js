@@ -17,7 +17,7 @@ module.exports = {
             if (!changes) return message.reply("You must enter the changes.");
 
             const changelogEmbed = new MessageEmbed()
-                .setAuthor({ name: "📜 Changelog" })
+                .setAuthor({ name: "📰 Changelog" })
                 .setDescription(`**${plugin} ${version}**`)
                 .addField("_ _", changes)
 
