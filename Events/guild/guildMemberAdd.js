@@ -1,5 +1,6 @@
+const updateMembersFunction = require('../client/ready.js')
+
 module.exports = (Discord, client, message) => {
-    console.log("[Yubu]: Is online!");
 
     const updateMembers = (guild) => {
         const channel = guild.channels.cache.get('931958980064997376');
@@ -8,5 +9,8 @@ module.exports = (Discord, client, message) => {
         console.log(`[Yubu]: Detected ${humans} members`);
     }
 
+    client.on('guildMemberAdd', (member) => updateMembers(member.guild));
+    client.on('guildMemberRemove', (member) => updateMembers(member.guild));
+    
     updateMembers(client.guilds.cache.get('844917410904670248'));
 }

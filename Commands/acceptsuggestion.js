@@ -11,7 +11,7 @@ module.exports = {
             const messageId = args[0];
             const note = args.slice(1).join(" ")
 
-            const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
+            const suggestionChannel = message.guild.channels.cache.get('932364904193740910');
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageId);
             const data = suggestedEmbed.embeds[0];
 
