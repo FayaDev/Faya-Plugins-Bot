@@ -9,27 +9,26 @@ module.exports = {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
     
             const messageId = args[0];
-            const note = args.slice(1).join(" ")
+            let note = args.slice(1).join(" ")
 
-            const suggestionChannel = message.guild.channels.cache.get('932364904193740910');
+            const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageId);
             const data = suggestedEmbed.embeds[0];
 
             if (!messageId) return message.reply("You need to enter the ID of the suggestion.");
             if (!data) return message.reply("No embed has been found.");
             if (!suggestedEmbed) return message.reply("No embed has been found.");
+            if (!note) note = "No reason given."
 
             const denyEmbed = new MessageEmbed()
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
                 .setTitle("Suggestion")
                 .setDescription(data.description)
-                .addField("__Status:__", "⛔ Denied")
+                .addField("__Status:__", `⛔ ${note}`)
                 .setColor("DARK_RED")
 
-            if (note){
-                denyEmbed.addField("__Note:__", note)
-            }
 
+            message.author.send({ embeds: [denyEmbed] })
             message.delete();
 
             suggestedEmbed.edit({ embeds: [denyEmbed] });

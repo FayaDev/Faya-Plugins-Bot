@@ -2,17 +2,17 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'suggest',
-    usage: '[amount]',
+    usage: '[suggestion]',
     execute(client, message, args){
         try {
             if (!message.author.bot) {
-                const suggestionChannel = message.guild.channels.cache.get('932364904193740910');
+                const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
     
                 const suggestion = args.slice(0).join(" ");
 
                 const suggestEmbed = new MessageEmbed()
                     .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
-                    .setTitle("Suggestion #116")
+                    .setTitle("Suggestion")
                     .setDescription(suggestion.toString())
                     .setColor("#337fd5")
                     .addField("__Status:__", "📊 Waiting for community feedback.")
