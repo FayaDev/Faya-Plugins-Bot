@@ -27,14 +27,7 @@ module.exports = {
                 .addField("__Status:__", `✅ ${note}`)
                 .setColor("DARK_GREEN")
 
-<<<<<<< HEAD
             message.author.send({ embeds: [acceptEmbed] })
-=======
-            if (note){
-                acceptEmbed.addField("__Note:__", note)
-            }
-
->>>>>>> 97131f11166209390d58d3cbcdf331f42316c760
             message.delete();
 
             suggestedEmbed.edit({ embeds: [acceptEmbed] });
