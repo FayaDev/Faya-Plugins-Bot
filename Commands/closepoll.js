@@ -11,8 +11,8 @@ module.exports = {
             const messageId = args[0];
             const note = args.slice(1).join(" ")
 
-            const pollChannel = message.guild.channels.cache.get('936346699130101760');
-            const pollEmbed = await pollChannel.messages.fetch(messageId);
+            const pollChannel = message.guild.channels.cache.get('936364904066195546');
+            const pollEmbed = await suggChanel.messages.fetch(messageId);
             const data = pollEmbed.embeds[0];
 
             if (!messageId) return message.reply("You need to enter the ID of the poll.");
@@ -49,7 +49,6 @@ module.exports = {
             }
 
             message.delete();
-
             pollEmbed.edit({ embeds: [acceptEmbed] });
         }
         catch (error) {

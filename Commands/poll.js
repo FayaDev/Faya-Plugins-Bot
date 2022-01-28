@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'poll',
-    usage: '[question]',
+    usage: '["option1"] ["option2"]',
     execute(client, message, args){
         try {
             if (!message.author.bot) {
