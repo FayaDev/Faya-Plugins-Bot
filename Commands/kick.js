@@ -1,4 +1,4 @@
-const { Message, Permissions, MessageEmbed } = require("discord.js");
+const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'kick',
@@ -15,19 +15,15 @@ module.exports = {
             if (!reason) reason = "No reason given.";
 
             const kickEmbed = new MessageEmbed()
-                .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
+            .setTitle("Member Kicked!")
                 .setColor('#B22222')
                 .addFields(
-                    { name: 'Action', value: 'Kick', inline: true },
-                    { name: 'Target', value: member.toString(), inline: true },
-                    { name: 'Reason', value: reason, inline: true },
+                    { name: 'Moderator', value: `${message.author.toString()} (${message.author.id})`},
+                    { name: 'Kicked Member', value: `${member.toString()} (${member.id.toString()})` },
+                    { name: 'Reason', value: reason },
                 )
 
-                member.kick().then((member) => {
-                    message.channel.send({ embeds: [kickEmbed] });
-                }).catch(() => {
-                    message.channel.send("Something went wrong.");
-                });
+            member.kick().then((member) => message.channel.send({ embeds: [kickEmbed] }));
         } catch (error) {
             console.log(error);
         }
