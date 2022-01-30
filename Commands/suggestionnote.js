@@ -1,8 +1,7 @@
 const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'acceptsuggestion',
-    description: 'Accepts a suggestion',
+    name: 'suggestionnote',
     usage: '[message ID] (note)',
     async execute(client, message, args, Discord){
         try{
@@ -18,19 +17,20 @@ module.exports = {
             if (!messageId) return message.reply("You need to enter the ID of the suggestion.");
             if (!data) return message.reply("No embed has been found.");
             if (!suggestedEmbed) return message.reply("No embed has been found.");
-            if (!note) note = "Accepted."
+            if (!note) return message.reply("You need to enter a note.");
 
-            const acceptEmbed = new MessageEmbed()
+            const suggestEmbed = new MessageEmbed()
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
                 .setTitle("Suggestion")
                 .setDescription(data.description)
-                .addField("__Status:__ ✅", `> ${note}`)
-                .setColor("DARK_GREEN")
+                .addField("__Status:__", "📊 Waiting for community feedback.")
+                .addField(`__Note from ${message.author.username}:__`, `> ${note}`)
+                .setColor("#337fd5")
                 .setFooter({ text: "Want to suggest something? use !suggest." })
 
             message.delete();
 
-            suggestedEmbed.edit({ embeds: [acceptEmbed] });
+            suggestedEmbed.edit({ embeds: [suggestEmbed] });
         }
         catch (error) {
             console.log(error);

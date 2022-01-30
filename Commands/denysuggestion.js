@@ -24,7 +24,7 @@ module.exports = {
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
                 .setTitle("Suggestion")
                 .setDescription(data.description)
-                .addField("__Status:__", `⛔ ${note}`)
+                .addField("__Status:__ ⛔", `> ${note}`)
                 .setColor("DARK_RED")
                 .setFooter({ text: "Want to suggest something? use !suggest." })
 
