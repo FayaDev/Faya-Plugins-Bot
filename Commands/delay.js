@@ -6,6 +6,7 @@ module.exports = {
     usage: '{project} {date} (reason)',
     execute(client, message, args){
         try {
+            if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");
 
             const project = args[0].replaceAll('_', ' ');
             const date = args[1].replaceAll('_', ' ');

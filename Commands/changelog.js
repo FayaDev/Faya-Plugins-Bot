@@ -6,6 +6,8 @@ module.exports = {
     usage: '{plugin} [version] [changes]',
     execute(client, message, args){
         try {
+            if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");
+
             const changelogChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('changelog'));
             
             let plugin = args[0].replaceAll('_', ' ');

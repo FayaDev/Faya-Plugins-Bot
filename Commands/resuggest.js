@@ -5,8 +5,9 @@ module.exports = {
     usage: '[message ID]',
     async execute(client, message, args){
         try {
-            if (!message.author.bot) {
-                const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
+            if (!message.member.permissions.has('MANAGE_MESSAGES') || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
+
+            const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
     
                 const messageId = args[0];
                 const suggestion = await suggestionChannel.messages.fetch(messageId);
@@ -24,7 +25,6 @@ module.exports = {
                 suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
                 embedMessage.react('👍'); embedMessage.react('👎'); 
                 });
-            }
         } catch (err) {
            console.log(err); 
         }

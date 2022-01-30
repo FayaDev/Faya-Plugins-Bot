@@ -6,6 +6,8 @@ module.exports = {
     usage: '{plugin} [version] {date}',
     execute(client, message, args){
         try {
+            if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");
+
             const releaseChannel = message.guild.channels.cache.get('932542017865678848');
             let plugin = args[0].replaceAll('_', ' ');
             let version = args[1];
