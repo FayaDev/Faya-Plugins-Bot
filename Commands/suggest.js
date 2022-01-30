@@ -16,7 +16,8 @@ module.exports = {
                     .setDescription(suggestion.toString())
                     .setColor("#337fd5")
                     .addField("__Status:__", "📊 Waiting for community feedback.")
-    
+                    .setFooter({ text: "Want to suggest something? use !suggest." })
+
                 message.delete();
     
                 suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {

@@ -18,7 +18,7 @@ module.exports = {
             if (!messageId) return message.reply("You need to enter the ID of the suggestion.");
             if (!data) return message.reply("No embed has been found.");
             if (!suggestedEmbed) return message.reply("No embed has been found.");
-            if (!note) note = "No reason given."
+            if (!note) note = "Denied."
 
             const denyEmbed = new MessageEmbed()
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
@@ -26,9 +26,8 @@ module.exports = {
                 .setDescription(data.description)
                 .addField("__Status:__", `⛔ ${note}`)
                 .setColor("DARK_RED")
+                .setFooter({ text: "Want to suggest something? use !suggest." })
 
-
-            message.author.send({ embeds: [denyEmbed] })
             message.delete();
 
             suggestedEmbed.edit({ embeds: [denyEmbed] });
