@@ -11,6 +11,7 @@ module.exports = {
                 let option1 = args.slice(0).join(" ").match(/(?:"[^"]*"|^[^"]*$)/)[0].toString().replaceAll("\"", "");
                 let option2 = args.slice(1).join(" ").match(/(?:"[^"]*"|^[^"]*$)/)[0].toString().replaceAll("\"", "");
 
+
                 const pollEmbed = new MessageEmbed()
                     .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
                     .setTitle("Poll")

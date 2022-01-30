@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "releasedate",
     description: "Lets users know when a plugin gets updated",
-    usage: '{plugin} {date}',
+    usage: '{plugin} [version] {date}',
     execute(client, message, args){
         try {
             const releaseChannel = message.guild.channels.cache.get('932542017865678848');
@@ -20,6 +20,7 @@ module.exports = {
                 //.addField(plugin, `A new release of ${plugin} is expected on ${date}.`)
                 .addField("Version", version)
 
+            message.delete();
             releaseChannel.send({ embeds: [releaseEmbed] });
 
         } catch (error) {
