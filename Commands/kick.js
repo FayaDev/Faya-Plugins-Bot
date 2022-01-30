@@ -15,7 +15,7 @@ module.exports = {
             if (!reason) reason = "No reason given.";
 
             const kickEmbed = new MessageEmbed()
-            .setTitle("Member Kicked!")
+                .setTitle("Member Kicked!")
                 .setColor('#B22222')
                 .addFields(
                     { name: 'Moderator', value: `${message.author.toString()} (${message.author.id})`},
