@@ -10,6 +10,7 @@ module.exports = {
     
                 const messageId = args[0];
                 const suggestion = await suggestionChannel.messages.fetch(messageId);
+                const customContent = args.slice(1).join(" ");
 
                 const suggestEmbed = new MessageEmbed()
                     .setAuthor({ name: suggestion.author.tag, iconURL: suggestion.author.displayAvatarURL() })
@@ -18,6 +19,10 @@ module.exports = {
                     .setColor("#337fd5")
                     .addField("__Status:__", "📊 Waiting for community feedback.")
                     .setFooter({ text: "Want to suggest something? use !suggest." })
+
+                if (customContent) {
+                    suggestEmbed.setDescription(customContent);
+                }
 
                 message.delete();
     
