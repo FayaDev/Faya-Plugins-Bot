@@ -2,7 +2,6 @@ const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'announce',
-    usage: '[role] [announcement]',
     execute(client, message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) return message.reply("You don't have the required permissions to perform this action.");

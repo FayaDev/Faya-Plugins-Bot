@@ -2,8 +2,6 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "changelog",
-    description: "Shows a changelog of an update",
-    usage: '{plugin} [version] [changes]',
     execute(client, message, args){
         try {
             if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");

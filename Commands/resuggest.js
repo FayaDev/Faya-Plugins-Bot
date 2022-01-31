@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'resuggest',
-    usage: '[message ID]',
     async execute(client, message, args){
         try {
             if (!message.member.permissions.has('MANAGE_MESSAGES') || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");

@@ -1,8 +1,6 @@
 const { Permissions } = require('discord.js');
 
 module.exports = {
-    name: 'lockdown',
-    usage: '',
     async execute(client, message, args){
         if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");
 

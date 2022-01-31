@@ -2,8 +2,6 @@ const { Permissions } = require('discord.js');
 
 module.exports = {
     name: 'clear',
-    description: 'deletes the entered amount of messages',
-    usage: '[amount]',
     async execute(client, message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");

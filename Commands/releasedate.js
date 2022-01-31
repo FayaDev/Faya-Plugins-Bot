@@ -2,8 +2,6 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "releasedate",
-    description: "Lets users know when a plugin gets updated",
-    usage: '{plugin} [version] {date}',
     execute(client, message, args){
         try {
             if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.reply("You don't have the required permissions to perform this action.");

@@ -2,8 +2,6 @@ const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'ban',
-    description: 'bans a member.',
-    usage: '[user] (reason)',
     execute(client, message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return message.reply("You don't have the required permissions to perform this action.");
