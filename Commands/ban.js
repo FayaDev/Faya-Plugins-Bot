@@ -7,21 +7,16 @@ module.exports = {
             if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return message.reply("You don't have the required permissions to perform this action.");
         
             const member = message.mentions.members.first();
-            let reason = args.slice(1).join(" ");
-
+            let reason = args[1];
             if (!member) return message.reply("You must enter a user.");
-            if (!reason) reason = "No reason given.";
+            if (!reason) reason = "an unknown reason";
 
             const banEmbed = new MessageEmbed()
-            .setTitle("Member Banned!")
-                .setColor('#B22222')
-                .addFields(
-                    { name: 'Moderator', value: `${message.author.toString()} (${message.author.id})`},
-                    { name: 'Banned Member', value: `${member.toString()} (${member.id.toString()})` },
-                    { name: 'Reason', value: reason },
-                )
+                .setDescription(`**✅ ${member.user.tag} has been banned for __${reason}__ by ${message.author.tag}**`)
+                .setColor('DARK_GREEN')
 
             member.ban().then((member) => message.channel.send({ embeds: [banEmbed] }));
+            
         } catch (error) {
             console.log(error);
         }
