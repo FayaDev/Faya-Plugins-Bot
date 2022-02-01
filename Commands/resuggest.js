@@ -6,26 +6,25 @@ module.exports = {
         try {
             if (!message.member.permissions.has('MANAGE_MESSAGES') || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
 
-            const suggestionChannel = message.guild.channels.cache.get('930206093676781569');
+            const suggestionChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggestions'));
     
                 const messageId = args[0];
                 const suggestion = await suggestionChannel.messages.fetch(messageId);
-                const customContent = args.slice(1).join(" ");
+                const member = message.mentions.members.first();
+                let customContent = args.slice(2).join(" ");
 
                 const suggestEmbed = new MessageEmbed()
-                    .setAuthor({ name: suggestion.author.tag, iconURL: suggestion.author.displayAvatarURL() })
+                    .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
                     .setTitle("Suggestion")
-                    .setDescription(suggestion.content)
+                    .setDescription(customContent)
+                    .setImage("https://cdn.discordapp.com/attachments/930206093676781569/937799993690054726/Screenshot_2022-01-31_210153.png")
                     .setColor("#337fd5")
-                    .addField("__Status:__", "📊 Waiting for community feedback.")
+                    .addField("__Status:__ 📊", "Waiting for community feedback.")
                     .setFooter({ text: "Want to suggest something? use !suggest." })
 
-                if (customContent) {
-                    suggestEmbed.setDescription(customContent);
-                }
-
                 message.delete();
-    
+                //suggestion.edit({ embeds: [suggestEmbed] });
+
                 suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
                 embedMessage.react('👍'); embedMessage.react('👎'); 
                 });

@@ -10,8 +10,9 @@ module.exports = {
             const messageId = args[0];
             const note = args.slice(1).join(" ")
 
-            const pollChannel = message.guild.channels.cache.get('936364904066195546');
-            const pollEmbed = await suggChanel.messages.fetch(messageId);
+            const pollChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('poll'));
+
+            const pollEmbed = await pollChannel.messages.fetch(messageId);
             const data = pollEmbed.embeds[0];
 
             if (!messageId) return message.reply("You need to enter the ID of the poll.");
@@ -23,14 +24,17 @@ module.exports = {
 
             let result = "-";
             let winningOptionVotes = "-";
+            let losingOptionVotes = "-";
 
             if (option1Reactions > option2Reactions) {
                 result = '1';
                 winningOptionVotes = option1Reactions;
+                losingOptionVotes = option2Reactions;
             }
             else if (option1Reactions < option2Reactions) {
                 result = '2';
                 winningOptionVotes = option2Reactions;
+                losingOptionVotes = option1Reactions;
             }
             else {
                 return message.channel.send("There was a tie, wait it out.");
@@ -38,13 +42,13 @@ module.exports = {
 
             const acceptEmbed = new MessageEmbed()
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
+                .setColor("DARK_GREEN")
                 .setTitle("Poll")
                 .setDescription(data.description)
-                .addField("__Status:__", `✅ Option **${result}** has won with **${winningOptionVotes}** votes!`)
-                .setColor("DARK_GREEN")
+                .addField("__Status:__ ✅", `Option **${result}** has won with **${winningOptionVotes}** votes!`)
 
             if (note){
-                acceptEmbed.addField("__Note:__", note)
+                acceptEmbed.addField(`__Note from ${message.author.username}:__`, `> ${note}`)
             }
 
             message.delete();
