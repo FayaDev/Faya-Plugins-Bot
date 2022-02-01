@@ -10,8 +10,9 @@ module.exports = {
             const messageId = args[0];
             const note = args.slice(1).join(" ")
 
-            const pollChannel = message.guild.channels.cache.get('936364904066195546');
-            const pollEmbed = await suggChanel.messages.fetch(messageId);
+            const pollChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('poll'));
+
+            const pollEmbed = await pollChannel.messages.fetch(messageId);
             const data = pollEmbed.embeds[0];
 
             if (!messageId) return message.reply("You need to enter the ID of the poll.");
@@ -40,7 +41,7 @@ module.exports = {
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
                 .setTitle("Poll")
                 .setDescription(data.description)
-                .addField("__Status:__", `✅ Option **${result}** has won with **${winningOptionVotes}** votes!`)
+                .addField("__Status:__ ✅", `Option **${result}** has won with **${winningOptionVotes}** votes!`)
                 .setColor("DARK_GREEN")
 
             if (note){
