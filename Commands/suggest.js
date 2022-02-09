@@ -4,7 +4,7 @@ module.exports = {
     name: 'suggest',
     execute(client, message, args){
         try {
-            const suggestionChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggestions'));
+            const suggestionChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggest'));
 
             const suggestion = args.slice(0).join(" ");
 
