@@ -29,6 +29,7 @@ module.exports = {
             message.delete();
 
             suggestedEmbed.edit({ embeds: [acceptEmbed] });
+            suggestedEmbed.reactions.removeAll().catch(error => console.log(error));
         }
         catch (error) {
             console.log(error);
