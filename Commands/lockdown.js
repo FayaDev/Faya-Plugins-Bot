@@ -15,13 +15,10 @@ module.exports = {
         const perms = role.permissions.toArray();
 
         if (query == 'false') {
-            perms.push('SEND_MESSAGES');
-            await role.edit({ permissions: perms });
+            message.channel.updateOverwrite(message.channel.guild.roles.everyone, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
             message.reply("Server is no longer locked down.");   
         } else if (query == 'true') {
-            const newPerms = perms.filter((perm) => perm !== 'SEND_MESSAGES');
-
-            await role.edit({ permissions: newPerms });
+            message.channel.updateOverwrite(message.channel.guild.roles.everyone, { VIEW_CHANNEL: false, SEND_MESSAGES: false });
             message.reply("Server is locked down.");
         }
     }
