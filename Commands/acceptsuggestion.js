@@ -24,7 +24,7 @@ module.exports = {
                 .setDescription(data.description)
                 .addField("__Status:__ ✅", `> ${note}`)
                 .setColor("DARK_GREEN")
-                .setFooter({ text: "Want to suggest something? use !suggest." })
+                .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
             message.delete();
 

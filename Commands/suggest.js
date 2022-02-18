@@ -4,6 +4,7 @@ module.exports = {
     name: 'suggest',
     execute(client, message, args){
         try {
+            return
             const suggestionChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggest'));
 
             const suggestion = args.slice(0).join(" ");
@@ -14,7 +15,7 @@ module.exports = {
                 .setDescription(suggestion.toString())
                 .setColor("#337fd5")
                 .addField("__Status:__ 📊", "Waiting for community feedback.")
-                .setFooter({ text: "Want to suggest something? use !suggest." })
+                .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
 
             if (args[0].startsWith("https://")) {
