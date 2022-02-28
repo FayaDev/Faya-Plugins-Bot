@@ -22,7 +22,7 @@ module.exports = {
                 .setAuthor({ name: data.author.name, iconURL: data.author.iconURL})
                 .setTitle("Suggestion")
                 .setDescription(data.description)
-                .addField("__Status:__", "📊 Waiting for community feedback.")
+                .addField("__Status:__ 📊", "Waiting for community feedback.")
                 .addField(`__Note from ${message.author.username}:__`, `> ${note}`)
                 .setColor("#337fd5")
                 .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
