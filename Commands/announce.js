@@ -1,7 +1,7 @@
 const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'plugin',
+    name: 'announce',
     execute(client, message, args){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.reply("You don't have the required permissions to perform this action.");
@@ -23,6 +23,7 @@ module.exports = {
                 .setImage(image)
 
             message.delete();
+            message.channel.send("<@&928005166580531230>");
             message.channel.send({ embeds: [pluginEmbed] });
         } catch (error) {
             console.log(error);
