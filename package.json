@@ -18,6 +18,8 @@
   "homepage": "https://github.com/FayaDev/Yubu#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
-    "dotenv": "^14.3.2"
+    "dotenv": "^14.3.2",
+    "imageapi.js": "^1.7.0",
+    "random-puppy": "^1.1.0"
   }
 }
