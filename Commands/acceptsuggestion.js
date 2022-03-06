@@ -30,6 +30,8 @@ module.exports = {
 
             suggestedEmbed.edit({ embeds: [acceptEmbed] });
             suggestedEmbed.reactions.removeAll().catch(error => console.log(error));
+        
+            suggestedEmbed.reply("**This suggestion has been accepted.**");
         }
         catch (error) {
             console.log(error);

@@ -30,6 +30,8 @@ module.exports = {
 
             suggestedEmbed.edit({ embeds: [denyEmbed] });
             suggestedEmbed.reactions.removeAll().catch(error => console.log(error));
+
+            suggestedEmbed.reply("**This suggestion has been denied.**");
         }
         catch (error) {
             console.log(error);
