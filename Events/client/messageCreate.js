@@ -16,8 +16,8 @@ module.exports = async (Discord, client, message, args) => {
             .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
                 
         await suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
-            embedMessage.react('👍'); 
-            embedMessage.react('👎'); 
+            embedMessage.react('⬆️'); 
+            embedMessage.react('⬇️'); 
             embedMessage.startThread({
                 name: "Discuss this suggestion",
                 autoArchiveDuration: 1440,
