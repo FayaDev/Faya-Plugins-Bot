@@ -26,10 +26,14 @@ module.exports = {
                 .setColor("DARK_GREEN")
                 .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
-            message.delete();
 
             suggestedEmbed.edit({ embeds: [acceptEmbed] });
             suggestedEmbed.reactions.removeAll().catch(error => console.log(error));
+            const user = client.users.cache.find(user => user.tag == data.author.name).id;
+
+            suggestedEmbed.reply(`<@${user}>, this suggestion has been accepted!`)
+
+            message.delete();
         }
         catch (error) {
             console.log(error);
