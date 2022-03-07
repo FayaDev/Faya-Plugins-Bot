@@ -26,12 +26,14 @@ module.exports = {
                 .setColor("DARK_RED")
                 .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
-            message.delete();
-
             suggestedEmbed.edit({ embeds: [denyEmbed] });
             suggestedEmbed.reactions.removeAll().catch(error => console.log(error));
 
-            suggestedEmbed.reply("**This suggestion has been denied.**");
+            let user = client.users.cache.find(u => u.tag === data.author.name).id
+
+            suggestedEmbed.reply(`<@${user}>, This suggestion has been denied.`);
+
+            message.delete();
         }
         catch (error) {
             console.log(error);
