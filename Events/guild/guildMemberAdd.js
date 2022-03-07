@@ -1,5 +1,3 @@
-const updateMembersFunction = require('../client/ready.js')
-
 module.exports = (Discord, client, message) => {
 
     const updateMembers = (guild) => {
