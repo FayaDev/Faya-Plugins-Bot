@@ -22,7 +22,7 @@ module.exports = {
             message.delete();
 
             suggestionChannel.send({ embeds: [suggestEmbed] }).then(embedMessage => {
-            embedMessage.react('👍'); embedMessage.react('👎'); 
+            embedMessage.react('⬆️'); embedMessage.react('⬇️'); 
             });
         } catch (err) {
            console.log(err); 
