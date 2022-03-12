@@ -10,7 +10,7 @@ module.exports = {
             const messageId = args[0];
             const note = args.slice(1).join(" ")
 
-            const pollChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('poll'));
+            const pollChannel = message.guild.channels.cache.find(channel => channel.name.includes('poll'));
 
             const pollEmbed = await pollChannel.messages.fetch(messageId);
             const data = pollEmbed.embeds[0];

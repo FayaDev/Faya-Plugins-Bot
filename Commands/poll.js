@@ -6,7 +6,7 @@ module.exports = {
         try {
             if (!message.member.permissions.has('MANAGE_MESSAGES') || message.author.bot) return message.reply("You don't have the required permissions to perform this action.");
             
-            const pollChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggest'));
+            const pollChannel = message.guild.channels.cache.find(channel => channel.name.includes('suggest'));
 
             let pollContent = args.slice(0).join(' ');
 

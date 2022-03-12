@@ -9,7 +9,7 @@ module.exports = {
             const project = args[0].replaceAll('_', ' ');
             const date = args[1].replaceAll('_', ' ');
             const reason = args.slice(2).join(" ");
-            const delayChannel = message.guild.channels.cache.find(delChannel => delChannel.name.includes('delay'));
+            const delayChannel = message.guild.channels.cache.find(channel => channel.name.includes('delay'));
 
             if (!project) return message.reply("You need to enter a project.");
             if (!date) return message.reply("You need to enter a delay date.");
