@@ -1,6 +1,5 @@
-module.exports = (Discord, client, message) => {
-    console.log("[Yubu]: Is online!");
-
+module.exports = async (Discord, client, message) => {
+    console.log("[Yubu]: Is online!");    
     const updateMembers = (guild) => {
         const channel = guild.channels.cache.get('931958980064997376');
 
@@ -10,4 +9,6 @@ module.exports = (Discord, client, message) => {
     }
 
     updateMembers(client.guilds.cache.get('844917410904670248'));
+
+    message.delete();
 }
