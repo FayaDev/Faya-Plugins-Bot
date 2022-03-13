@@ -31,7 +31,7 @@ module.exports = {
 
             let user = client.users.cache.find(u => u.tag === data.author.name).id
 
-            suggestedEmbed.reply(`<@${user}>, This suggestion has been denied.`);
+            suggestedEmbed.reply(`<@${user}>, this suggestion has been denied.`);
 
             message.delete();
         }
