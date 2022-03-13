@@ -32,7 +32,7 @@ module.exports = {
 
             const user = client.users.cache.find(user => user.tag == data.author.name).id;
 
-            suggestedEmbed.reply(`<@${user}>, this suggestion has been accepted!`)
+            suggestedEmbed.reply(`<@${user}>, this suggestion has been accepted!`);
 
             message.delete();
         }
