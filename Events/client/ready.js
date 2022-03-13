@@ -9,6 +9,4 @@ module.exports = async (Discord, client, message) => {
     }
 
     updateMembers(client.guilds.cache.get('844917410904670248'));
-
-    message.delete();
 }
