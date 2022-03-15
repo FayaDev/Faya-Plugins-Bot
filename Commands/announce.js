@@ -10,18 +10,18 @@ module.exports = {
             const title = msg.match(/(?:"[^"]*"|^[^"]*$)/)[0].replace(/"/g, "");
             let announcement = msg.replace(title, "").replace(/"/g, "");
             
-            //let imgURL = announcement.split(" ").splice(-1)[0];;
-            //let pageURL = announcement.split(" ").splice(-2)[0];;
+            let imgURL = announcement.split(" ").splice(-1)[0];;
+            let pageURL = announcement.split(" ").splice(-2)[0];;
             
-            //announcement = announcement.replace(imgURL, "")
-            //announcement = announcement.replace(pageURL, "")
+            announcement = announcement.replace(imgURL, "")
+            announcement = announcement.replace(pageURL, "")
 
             const announceEmbed = new MessageEmbed()
                 .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
                 .setTitle(title)
                 .setDescription(announcement)
-                //.setImage(imgURL)
-                //.setURL(pageURL)
+                .setImage(imgURL)
+                .setURL(pageURL)
 
             message.delete();
             message.channel.send({ embeds: [announceEmbed] });

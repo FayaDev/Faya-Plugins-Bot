@@ -16,7 +16,6 @@ module.exports = {
                 .setColor('DARK_GREEN')
 
             message.guild.ban(member, { reason: reason }).then((member) => message.channel.send({ embeds: [banEmbed] }));
-            
         } catch (error) {
             console.log(error);
         }
