@@ -11,11 +11,7 @@ client.events = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
-<<<<<<< HEAD
 const welcomeChannelId = '847583897683623997';
-=======
-const welcomeChannelId = '953772512502747187';
->>>>>>> 0ed2e65e4f7a674ae77d7eeb0277fc00b45780a9
 
 client.on('guildMemberAdd', member => {
     const welcomeMessage = new Discord.MessageEmbed()
