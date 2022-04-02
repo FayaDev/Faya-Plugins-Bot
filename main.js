@@ -25,4 +25,12 @@ client.on('guildMemberAdd', member => {
     channel.send({ embeds: [welcomeMessage] });
 })
 
+client.on('messageCreate', message => {
+    if (message.channel.id != '952263131810398298' || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
+
+    if (message.attachments.size == 0 && !message.content.startsWith("https://")) {
+        message.delete();
+    }
+})
+
 client.login(process.env.TOKEN);
