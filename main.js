@@ -26,10 +26,10 @@ client.on('guildMemberAdd', member => {
 })
 
 client.on('messageCreate', message => {
-    if (message.channel.id != '952263131810398298' || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
-
-    if (message.attachments.size == 0 && !message.content.startsWith("https://")) {
-        message.delete();
+    if ((message.channel.id == '952263131810398298' || message.channel.id == '937852019203514397') && !message.author.bot && !message.content.startsWith(process.env.PREFIX)) {
+        if (message.attachments.size == 0 && !message.content.startsWith("https://")) {
+            message.delete();
+        }    
     }
 })
 
