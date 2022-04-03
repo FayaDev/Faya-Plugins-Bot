@@ -7,14 +7,32 @@ const client = new Discord.Client({ intents });
 const channelConfig = require("./config.json");
 
 client.commands = new Discord.Collection();
-client.events = new Discord.Collection();
 
-['command_handler', 'event_handler'].forEach(handler => {
+['command_handler'].forEach(handler => {
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
-// Welcome Message
+// Update Member Count
+client.on('ready', async message => {
+    console.log("[Yubu]: Is online!");    
+    const updateMembers = (guild) => {
+        const channel = guild.channels.cache.get(channelConfig.welcomeChannelId);
+
+        let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+        channel.setName(`Members: ${humans}`)
+        console.log(`[Yubu]: Detected ${humans} members`);
+    }
+
+    updateMembers(client.guilds.cache.get(channelConfig.guildId));
+})
+
+// New Member
 client.on('guildMemberAdd', member => {
+
+    // Give Member Role
+    member.roles.add(channelConfig.memberRoleId);
+
+    // Send Welcome Message
     const welcomeMessage = new Discord.MessageEmbed()
         .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
         .setDescription(`Welcome **${member.user.username}**, enjoy your stay!`)
@@ -22,7 +40,7 @@ client.on('guildMemberAdd', member => {
         .setColor("RANDOM")
         .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
 
-    const channel  = member.guild.channels.cache.get(welcomeChannelId);
+    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
     channel.send({ embeds: [welcomeMessage] });
 })
 
@@ -52,6 +70,18 @@ client.on('messageCreate', async message => {
     } catch (err) {
        console.log(err); 
     }
+})
+
+// Command Check
+client.on('messageCreate', async message => {
+    if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+
+    const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
+    const cmd = args.shift().toLowerCase();
+
+    const command = client.commands.get(cmd);
+
+    if (command) command.execute(client, message, args, Discord);
 })
 
 // Auto Message Delete
