@@ -1,4 +1,5 @@
 const { Permissions, MessageEmbed } = require("discord.js");
+const channelConfig = require("../config.json");
 
 module.exports = {
     name: 'suggestionnote',
@@ -9,7 +10,7 @@ module.exports = {
             const messageId = args[0];
             let note = args.slice(1).join(" ")
 
-            const suggestionChannel = message.guild.channels.cache.find(logChannel => logChannel.name.includes('suggest'));
+            const suggestionChannel = message.guild.channels.cache.find(channel => channel.id == config.suggestionChannelId);
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageId);
             const data = suggestedEmbed.embeds[0];
 
