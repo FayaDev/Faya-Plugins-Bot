@@ -14,12 +14,14 @@ client.commands = new Discord.Collection();
 
 // Update Member Count
 client.on('ready', async message => {
-    console.log("[Yubu]: Is online!");    
+
+    console.log("[Yubu]: Is online!");   
+     
     const updateMembers = (guild) => {
-        const channel = guild.channels.cache.get(channelConfig.welcomeChannelId);
+        const memberCountChannel = guild.channels.cache.get(channelConfig.memberCountChannelId);
 
         let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-        channel.setName(`Members: ${humans}`)
+        memberCountChannel.setName(`Members: ${humans}`)
         console.log(`[Yubu]: Detected ${humans} members`);
     }
 
