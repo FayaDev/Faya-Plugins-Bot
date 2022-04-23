@@ -17,7 +17,7 @@ client.on('ready', async message => {
     console.log("[Yubu]: Is online!");   
      
     const updateMembers = (guild) => {
-        const memberCountChannel = guild.channels.cache.get(channelConfig.memberCountChannelId);
+        const memberCountChannel = guild.channels.cache.get('931958980064997376');
 
         let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
         memberCountChannel.setName(`Members: ${humans}`)
@@ -27,7 +27,7 @@ client.on('ready', async message => {
     updateMembers(client.guilds.cache.get(channelConfig.guildId));
 })
 
-// New Member
+// New Member Message
 client.on('guildMemberAdd', member => {
 
     // Give Member Role
@@ -36,7 +36,7 @@ client.on('guildMemberAdd', member => {
     // Send Welcome Message
     const welcomeMessage = new Discord.MessageEmbed()
         .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-        .setDescription(`Welcome **${member.user.username}**, enjoy your stay!`)
+        .setDescription(`Welcome ${member}, enjoy your stay!`)
         .setThumbnail(member.displayAvatarURL())
         .setColor("RANDOM")
         .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
