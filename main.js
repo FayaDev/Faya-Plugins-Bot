@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const { config } = require('dotenv');
 require('dotenv').config();
 
 const intents = new Discord.Intents(32767);

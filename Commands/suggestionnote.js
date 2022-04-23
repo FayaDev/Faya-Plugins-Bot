@@ -10,7 +10,7 @@ module.exports = {
             const messageId = args[0];
             let note = args.slice(1).join(" ")
 
-            const suggestionChannel = message.guild.channels.cache.find(channel => channel.id == config.suggestionChannelId);
+            const suggestionChannel = message.guild.channels.cache.find(channel => channel.id == channelConfig.suggestionChannelId);
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageId);
             const data = suggestedEmbed.embeds[0];
 
