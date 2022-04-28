@@ -11,6 +11,37 @@ client.commands = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
+// Important action logging
+client.on('messageDelete', async (message) => {
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
+
+    const channel = message.guild.channels.cache.get('937740840464433262');
+
+    const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
+
+    const actionMessage = new Discord.MessageEmbed()
+        .setDescription(`**${entry.executor} deleted a message from ${message.author}**`)
+        .addField("Message Content:", message.content)
+        .setFooter({text: `${message.channel.name}`})
+        
+    channel.send({embeds: [actionMessage]});
+
+})
+
+// client.on('guildBanAdd', async (message) => {
+//     const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
+
+//     const entry = await message.guild.fetchAuditLogs({ type: "MEMBER_BAN_ADD"}).then(audit => audit.entries.first());
+
+//     const actionMessage = new Discord.MessageEmbed()
+//         .setDescription(`**${entry.target} banned ${entry.executor}**`)
+//         .addField("Message Content:", message.content)
+//         .setColor("RED")
+        
+//     channel.send({embeds: [actionMessage]});
+
+// })
+
 // Update Member Count
 client.on('ready', async message => {
 
@@ -27,7 +58,7 @@ client.on('ready', async message => {
     updateMembers(client.guilds.cache.get(channelConfig.guildId));
 })
 
-// New Member Message
+// Welcome Message
 client.on('guildMemberAdd', member => {
 
     // Give Member Role
