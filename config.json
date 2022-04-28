@@ -1,10 +1,12 @@
 {
     "guildId": "844917410904670248",
+    "botTestChannelId": "937740840464433262",
     "welcomeChannelId": "960134126189568042",
     "memberRoleId": "927889061379727360",
     "suggestionChannelId": "930206093676781569",
     "logChannelId": "933323927613222943",
     "galleryChannelId": "952263131810398298",
     "clipsChannelId": "937852019203514397",
-    "memberCountChannelId": "931958980064997376"
+    "memberCountChannelId": "931958980064997376",
+    "importantActionsChannelId": "969257838612447334"
 }

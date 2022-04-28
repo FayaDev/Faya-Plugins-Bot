@@ -15,7 +15,7 @@ client.commands = new Discord.Collection();
 client.on('messageDelete', async (message) => {
     if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
 
-    const channel = message.guild.channels.cache.get('937740840464433262');
+    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
 
     const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
 
