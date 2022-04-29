@@ -13,8 +13,8 @@ client.commands = new Discord.Collection();
 
 // Important action logging
 client.on('messageDelete', async (message) => {
-    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
 
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
     const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
 
     const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
@@ -28,19 +28,37 @@ client.on('messageDelete', async (message) => {
 
 })
 
-// client.on('guildBanAdd', async (message) => {
-//     const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
+client.on('guildMemberRemove', async member => {
+    const channel = member.guild.channels.cache.get('955903952434634882');
+    const entry = await member.guild.fetchAuditLogs({ type: "MEMBER_KICK"}).then(audit => audit.entries.first());
 
-//     const entry = await message.guild.fetchAuditLogs({ type: "MEMBER_BAN_ADD"}).then(audit => audit.entries.first());
+	if (!entry) return;
 
-//     const actionMessage = new Discord.MessageEmbed()
-//         .setDescription(`**${entry.target} banned ${entry.executor}**`)
-//         .addField("Message Content:", message.content)
-//         .setColor("RED")
-        
-//     channel.send({embeds: [actionMessage]});
+	if (entry.target.id === member.id) {
+        const actionMessage = new Discord.MessageEmbed()
+            .setDescription(`**${entry.executor} kicked ${member.user.tag}**`)
+            .addField("Reason:", entry.reason)
+            .setColor("RED")
+            .setFooter({text: `Target ID: ${member.user.id}`})
 
-// })
+        channel.send({ embeds: [actionMessage] })
+    } 
+});
+
+client.on('guildBanAdd', async ban => {
+
+    const actionsChannel = ban.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
+    const entry = await ban.guild.fetchAuditLogs({ type: "MEMBER_BAN_ADD"}).then(audit => audit.entries.first());
+
+    const actionMessage = new Discord.MessageEmbed()
+        .setDescription(`**${entry.target} banned ${ban.user.tag}**`)
+        .addField("Reason:", entry.reason)
+        .setColor("RED")
+        .setFooter({text: `Target ID: ${entry.target.user.id}`})
+
+    
+    actionsChannel.send({ embeds: [actionMessage] });
+})
 
 // Update Member Count
 client.on('ready', async message => {
