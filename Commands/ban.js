@@ -2,20 +2,28 @@ const { Permissions, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'ban',
-    async execute(client, message, args){
+    execute(client, message, args, Discord){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return message.reply("You don't have the required permissions to perform this action.");
-        
+            const actionsChannel = message.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
+
             const member = message.mentions.members.first();
             let reason = args.slice(1).join(" ");
+
             if (!member) return message.reply("You must enter a user.");
             if (!reason) reason = "an unknown reason";
 
-            const banEmbed = new MessageEmbed()
-                .setDescription(`**✅ ${member.user.tag} has been banned for __${reason}__ by ${message.author.tag}**`)
-                .setColor('DARK_GREEN')
+            const actionMessage = new MessageEmbed()
+                .setDescription(`**${message.author} banned ${member.user.tag}**`)
+                .addField("Reason:", reason)
+                .setColor("RED")
+                .setFooter({text: `Target ID: ${member.user.id}`})
+                
+            message.channel.send({embeds: [actionMessage]});
+            actionsChannel.send({embeds: [actionMessage]});
 
-            message.guild.ban(member, { reason: reason }).then((member) => message.channel.send({ embeds: [banEmbed] }));
+            member.ban({ reason: reason });
+            
         } catch (error) {
             console.log(error);
         }
