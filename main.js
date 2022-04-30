@@ -60,13 +60,25 @@ client.on('guildBanAdd', async ban => {
     actionsChannel.send({ embeds: [actionMessage] });
 })
 
+client.on('channelDelete', async channel => {
+
+    const actionsChannel = channel.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
+    const entry = await channel.guild.fetchAuditLogs({ type: "CHANNEL_DELETE"}).then(audit => audit.entries.first());
+
+    const actionMessage = new Discord.MessageEmbed()
+        .setDescription(`**${entry.executor} deleted #${channel.name}**`)
+        .setColor("GREEN")
+    
+    actionsChannel.send({ embeds: [actionMessage] });
+})
+
 // Update Member Count
-client.on('ready', async message => {
+client.on('ready', c => {
 
     console.log("[Yubu]: Is online!");   
      
     const updateMembers = (guild) => {
-        const memberCountChannel = guild.channels.cache.get('931958980064997376');
+        const memberCountChannel = guild.channels.cache.find(channel => channel.name.toLowerCase().includes("member"));
 
         let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
         memberCountChannel.setName(`Members: ${humans}`)
