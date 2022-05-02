@@ -25,7 +25,6 @@ client.on('messageDelete', async (message) => {
         .setFooter({text: `${message.channel.name}`})
         
     channel.send({embeds: [actionMessage]});
-
 })
 
 client.on('guildBanAdd', async ban => {
@@ -39,7 +38,6 @@ client.on('guildBanAdd', async ban => {
         .setColor("RED")
         .setFooter({text: `Target ID: ${entry.target.user.id}`})
 
-    
     actionsChannel.send({ embeds: [actionMessage] });
 })
 
