@@ -11,69 +11,13 @@ client.commands = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
-// Important action logging
-client.on('messageDelete', async (message) => {
-
-    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
-    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
-
-    const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
-
-    const actionMessage = new Discord.MessageEmbed()
-        .setDescription(`**${entry.executor} deleted a message from ${message.author}**`)
-        .addField("Message Content:", message.content)
-        .setFooter({text: `${message.channel.name}`})
-        
-    channel.send({embeds: [actionMessage]});
-})
-
-client.on('guildBanAdd', async ban => {
-
-    const actionsChannel = ban.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
-    const entry = await ban.guild.fetchAuditLogs({ type: "MEMBER_BAN_ADD"}).then(audit => audit.entries.first());
-
-    const actionMessage = new Discord.MessageEmbed()
-        .setDescription(`**${entry.target} banned ${ban.user.tag}**`)
-        .addField("Reason:", entry.reason)
-        .setColor("RED")
-        .setFooter({text: `Target ID: ${entry.target.user.id}`})
-
-    actionsChannel.send({ embeds: [actionMessage] });
-})
-
-client.on('channelDelete', async channel => {
-
-    const actionsChannel = channel.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
-    const entry = await channel.guild.fetchAuditLogs({ type: "CHANNEL_DELETE"}).then(audit => audit.entries.first());
-
-    const actionMessage = new Discord.MessageEmbed()
-        .setDescription(`**${entry.executor} deleted #${channel.name}**`)
-        .setColor("GREEN")
-    
-    actionsChannel.send({ embeds: [actionMessage] });
-})
-
-// Update Member Count
-client.on('ready', c => {
-
-    console.log("[Yubu]: Is online!");   
-     
-    const updateMembers = (guild) => {
-        const memberCountChannel = guild.channels.cache.find(channel => channel.name.toLowerCase().includes("member"));
-
-        let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-        memberCountChannel.setName(`Members: ${humans}`)
-        console.log(`[Yubu]: Detected ${humans} members`);
-    }
-
-    updateMembers(client.guilds.cache.get(channelConfig.guildId));
-})
-
 // Welcome Message
 client.on('guildMemberAdd', member => {
-
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name.includes("welcome"));
+    const memberRole = member.guild.roles.cache.find(r => r.name.toLowerCase().includes("member"));
+    
     // Give Member Role
-    member.roles.add(channelConfig.memberRoleId);
+    member.roles.add(memberRole);
 
     // Send Welcome Message
     const welcomeMessage = new Discord.MessageEmbed()
@@ -83,8 +27,22 @@ client.on('guildMemberAdd', member => {
         .setColor("RANDOM")
         .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
 
-    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
-    channel.send({ embeds: [welcomeMessage] });
+    welcomeChannel.send({ embeds: [welcomeMessage] });
+})
+
+// Update Member Count
+client.on('ready', c => {
+
+    console.log("[Faya's Plugins]: Is online!");   
+     
+    const updateMembers = (guild) => {
+        let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+        c.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
+
+        console.log(`[Faya's Plugins]: Detected ${humans} members`);
+    }
+
+    updateMembers(client.guilds.cache.get(channelConfig.guildId));
 })
 
 // Suggestion
@@ -127,7 +85,7 @@ client.on('messageCreate', async message => {
     if (command) command.execute(client, message, args, Discord);
 })
 
-// Auto Message Delete
+// Auto Message Deletion
 client.on('messageCreate', message => {
     if ((message.channel.id == channelConfig.galleryChannelId || message.channel.id == channelConfig.clipsChannelId) && !message.author.bot && !message.content.startsWith(process.env.PREFIX)) {
         if (message.attachments.size == 0 && !message.content.startsWith("https://")) {
@@ -136,4 +94,32 @@ client.on('messageCreate', message => {
     }
 })
 
+// Important action logging
+client.on('messageDelete', async (message) => {
+
+    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
+    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
+
+    const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
+
+    const actionMessage = new Discord.MessageEmbed()
+        .setAuthor({ name: `${entry.executor.tag} deleted a message`, iconURL: entry.executor.displayAvatarURL()})
+        .addField("Message Content:", message.content)
+        .setFooter({text: message.channel.name})
+        
+    channel.send({embeds: [actionMessage]});
+})
+
+client.on('guildBanAdd', async ban => {
+    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
+
+    const entry = await message.guild.fetchAuditLogs({ type: "GUILD_BAN_ADD"}).then(audit => audit.entries.first());
+
+    const actionMessage = new Discord.MessageEmbed()
+        .setAuthor({ name: `${entry.executor.tag} banned ${entry.target.tag}`, iconURL: entry.executor.displayAvatarURL()})
+        .addField("Reason:", entry.reason)
+        .setFooter({text: message.channel.name})
+        
+    message.channel.send({embeds: [actionMessage]});
+})
 client.login(process.env.TOKEN);
