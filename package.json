@@ -20,6 +20,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
     "env": "^0.0.2",
+    "heroku": "^7.30.1",
     "imageapi.js": "^1.7.0",
     "random-puppy": "^1.1.0"
   }
