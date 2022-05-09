@@ -7,42 +7,8 @@ const channelConfig = require("./config.json");
 
 client.commands = new Discord.Collection();
 
-['command_handler'].forEach(handler => {
+['command_handler', 'event_handler'].forEach(handler => {
     require(`./Handlers/${handler}`)(client, Discord);
-})
-
-// Welcome Message
-client.on('guildMemberAdd', member => {
-    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name.includes("welcome"));
-    const memberRole = member.guild.roles.cache.find(r => r.name.toLowerCase().includes("member"));
-    
-    // Give Member Role
-    member.roles.add(memberRole);
-
-    // Send Welcome Message
-    const welcomeMessage = new Discord.MessageEmbed()
-        .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-        .setDescription(`Welcome ${member}, enjoy your stay!`)
-        .setThumbnail(member.displayAvatarURL())
-        .setColor("RANDOM")
-        .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
-
-    welcomeChannel.send({ embeds: [welcomeMessage] });
-})
-
-// Update Member Count
-client.on('ready', c => {
-
-    console.log("[Faya's Plugins]: Is online!");   
-     
-    const updateMembers = (guild) => {
-        let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-        c.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
-
-        console.log(`[Faya's Plugins]: Detected ${humans} members`);
-    }
-
-    updateMembers(client.guilds.cache.get(channelConfig.guildId));
 })
 
 // Suggestion
@@ -95,23 +61,8 @@ client.on('messageCreate', message => {
 })
 
 // Important action logging
-client.on('messageDelete', async (message) => {
-
-    if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES) || message.author.bot || message.content.startsWith(process.env.PREFIX)) return;
-    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
-
-    const entry = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE"}).then(audit => audit.entries.first());
-
-    const actionMessage = new Discord.MessageEmbed()
-        .setAuthor({ name: `${entry.executor.tag} deleted a message`, iconURL: entry.executor.displayAvatarURL()})
-        .addField("Message Content:", message.content)
-        .setFooter({text: message.channel.name})
-        
-    channel.send({embeds: [actionMessage]});
-})
-
 client.on('guildBanAdd', async ban => {
-    const channel = message.guild.channels.cache.get(channelConfig.importantActionsChannelId);
+    const actionsChannel = ban.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
 
     const entry = await message.guild.fetchAuditLogs({ type: "GUILD_BAN_ADD"}).then(audit => audit.entries.first());
 
@@ -120,6 +71,7 @@ client.on('guildBanAdd', async ban => {
         .addField("Reason:", entry.reason)
         .setFooter({text: message.channel.name})
         
-    message.channel.send({embeds: [actionMessage]});
+    actionsChannel.send({embeds: [actionMessage]});
 })
+
 client.login(process.env.TOKEN);

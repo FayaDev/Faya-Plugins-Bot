@@ -5,7 +5,6 @@ module.exports = {
     execute(client, message, args, Discord){
         try {
             if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return message.reply("You don't have the required permissions to perform this action.");
-            const actionsChannel = message.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
 
             const member = message.mentions.members.first();
             let reason = args.slice(1).join(" ");
@@ -20,7 +19,6 @@ module.exports = {
                 .setFooter({text: `Target ID: ${member.user.id}`})
                 
             message.channel.send({embeds: [actionMessage]});
-            actionsChannel.send({embeds: [actionMessage]});
 
             member.ban({ reason: reason });
             
