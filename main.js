@@ -11,6 +11,41 @@ client.commands = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
+// Update Members
+client.on('ready', async message => {
+    try {
+        const updateMembers = (guild) => {
+            let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+            client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
+    
+            console.log(`[Faya's Plugins]: Detected ${humans} members`);
+        }
+    
+        updateMembers(client.guilds.cache.get('844917410904670248'));
+
+    } catch (err) {
+       console.log(err); 
+    }
+})
+
+// Welcome Message
+client.on('guildMemberAdd', member => {
+
+    // Give Member Role
+    member.roles.add(channelConfig.memberRoleId);
+
+    // Send Welcome Message
+    const welcomeMessage = new Discord.MessageEmbed()
+        .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
+        .setDescription(`Welcome ${member}, enjoy your stay!`)
+        .setThumbnail(member.displayAvatarURL())
+        .setColor("RANDOM")
+        .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
+
+    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
+    channel.send({ embeds: [welcomeMessage] });
+})
+
 // Suggestion
 client.on('messageCreate', async message => {
     const suggestionChannel = message.guild.channels.cache.find(channel => channel.id == channelConfig.suggestionChannelId);
@@ -58,20 +93,6 @@ client.on('messageCreate', message => {
             message.delete();
         }    
     }
-})
-
-// Important action logging
-client.on('guildBanAdd', async ban => {
-    const actionsChannel = ban.guild.channels.cache.find(channel => channel.name.includes("important-actions"));
-
-    const entry = await message.guild.fetchAuditLogs({ type: "GUILD_BAN_ADD"}).then(audit => audit.entries.first());
-
-    const actionMessage = new Discord.MessageEmbed()
-        .setAuthor({ name: `${entry.executor.tag} banned ${entry.target.tag}`, iconURL: entry.executor.displayAvatarURL()})
-        .addField("Reason:", entry.reason)
-        .setFooter({text: message.channel.name})
-        
-    actionsChannel.send({embeds: [actionMessage]});
 })
 
 client.login(process.env.TOKEN);
