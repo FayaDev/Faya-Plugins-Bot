@@ -6,8 +6,8 @@ const client = new Discord.Client({ intents });
 const channelConfig = require("./config.json");
 
 client.commands = new Discord.Collection();
-
-['command_handler', 'event_handler'].forEach(handler => {
+//, 'event_handler'
+['command_handler'].forEach(handler => {
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
