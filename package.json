@@ -17,10 +17,11 @@
   },
   "homepage": "https://github.com/FayaDev/Yubu#readme",
   "dependencies": {
-    "discord.js": "^13.6.0",
+    "discord-button-pages": "^1.1.9",
+    "discord-buttons": "^4.0.0-deprecated",
+    "discord.js": "^13.7.0",
     "dotenv": "^14.3.2",
     "env": "^0.0.2",
-    "heroku": "^7.30.1",
     "imageapi.js": "^1.7.0",
     "random-puppy": "^1.1.0"
   }
