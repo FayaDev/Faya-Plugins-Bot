@@ -95,13 +95,7 @@ client.on('messageCreate', message => {
     }
 })
 
-const maxMessageCount = 3;
-let lastStickyMessage = "";
-let messageCount = 0;
-let stickyMessageChannel = "937740840464433262";
-let stickyMessageContent = "This is a sticky message";
-
-// Sticky Message
+// Redirect Message
 client.on('messageCreate', async message => {
 
     if (message.author.bot || message.channel.id == '972465245383704626') return;
