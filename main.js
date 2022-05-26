@@ -95,4 +95,26 @@ client.on('messageCreate', message => {
     }
 })
 
+const maxMessageCount = 3;
+let lastStickyMessage = "";
+let messageCount = 0;
+let stickyMessageChannel = "937740840464433262";
+let stickyMessageContent = "This is a sticky message";
+
+// Sticky Message
+client.on('messageCreate', async message => {
+
+    if (message.author.bot || message.channel.id == '972465245383704626') return;
+
+    const triggers = [ "help", "crash", "bug", "issue", "problem", "freeze" ];
+
+    message.content.toLowerCase();
+
+    if (message.content.includes(triggers[0]) || message.content.includes(triggers[1]) || message.content.includes(triggers[2]) || 
+    message.content.includes(triggers[3]) || message.content.includes(triggers[4]) || message.content.includes(triggers[5])) {
+
+        message.channel.send("<#972465245383704626>");
+    }
+})
+
 client.login(process.env.TOKEN);
