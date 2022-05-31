@@ -6,7 +6,7 @@ const client = new Discord.Client({ intents });
 const channelConfig = require("./config.json");
 
 client.commands = new Discord.Collection();
-//, 'event_handler'
+
 ['command_handler'].forEach(handler => {
     require(`./Handlers/${handler}`)(client, Discord);
 })
@@ -14,22 +14,23 @@ client.commands = new Discord.Collection();
 // Update Members
 client.on('ready', async message => {
     try {
-        const updateMembers = (guild) => {
-            let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-            client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
-    
-            console.log(`[Faya's Plugins]: Detected ${humans} members`);
-        }
-    
         updateMembers(client.guilds.cache.get('844917410904670248'));
+
 
     } catch (err) {
        console.log(err); 
     }
 })
+const updateMembers = (guild) => {
+    let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+    client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
+
+    console.log(`[Faya's Plugins]: Detected ${humans} members`);
+}
 
 // Welcome Message
 client.on('guildMemberAdd', member => {
+    updateMembers(client.guilds.cache.get('844917410904670248'));
 
     // Give Member Role
     member.roles.add(channelConfig.memberRoleId);
@@ -44,6 +45,10 @@ client.on('guildMemberAdd', member => {
 
     const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
     channel.send({ embeds: [welcomeMessage] });
+})
+
+client.on('guildMemberRemove', member => {
+    updateMembers(client.guilds.cache.get('844917410904670248'));
 })
 
 // Suggestion
