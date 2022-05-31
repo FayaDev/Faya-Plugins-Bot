@@ -6,23 +6,23 @@ const client = new Discord.Client({ intents });
 const channelConfig = require("./config.json");
 
 client.commands = new Discord.Collection();
-//, 'event_handler'
+
 ['command_handler'].forEach(handler => {
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
+// Update Members Method
+const updateMembers = (guild) => {
+    let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+    client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
+
+    console.log(`[Faya's Plugins]: Detected ${humans} members`);
+}
+
 // Update Members
 client.on('ready', async message => {
     try {
-        const updateMembers = (guild) => {
-            let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-            client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
-    
-            console.log(`[Faya's Plugins]: Detected ${humans} members`);
-        }
-    
         updateMembers(client.guilds.cache.get('844917410904670248'));
-
     } catch (err) {
        console.log(err); 
     }
@@ -30,20 +30,33 @@ client.on('ready', async message => {
 
 // Welcome Message
 client.on('guildMemberAdd', member => {
+    try {
+        updateMembers(client.guilds.cache.get('844917410904670248'));
 
-    // Give Member Role
-    member.roles.add(channelConfig.memberRoleId);
+        // Give Member Role
+        member.roles.add(channelConfig.memberRoleId);
+    
+        // Send Welcome Message
+        const welcomeMessage = new Discord.MessageEmbed()
+            .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
+            .setDescription(`Welcome ${member}, enjoy your stay!`)
+            .setThumbnail(member.displayAvatarURL())
+            .setColor("RANDOM")
+            .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
+    
+        const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
+        channel.send({ embeds: [welcomeMessage] });
+    } catch (err) {
+        console.log(err); 
+     }    
+})
 
-    // Send Welcome Message
-    const welcomeMessage = new Discord.MessageEmbed()
-        .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-        .setDescription(`Welcome ${member}, enjoy your stay!`)
-        .setThumbnail(member.displayAvatarURL())
-        .setColor("RANDOM")
-        .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
-
-    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
-    channel.send({ embeds: [welcomeMessage] });
+client.on('guildMemberRemove', member => {
+    try {
+        updateMembers(client.guilds.cache.get('844917410904670248'));
+    } catch (err) {
+       console.log(err); 
+    }
 })
 
 // Suggestion
@@ -95,7 +108,7 @@ client.on('messageCreate', message => {
     }
 })
 
-// Redirect Message
+// Sticky Message
 client.on('messageCreate', async message => {
 
     if (message.author.bot || message.channel.id == '972465245383704626') return;
