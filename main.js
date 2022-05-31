@@ -11,6 +11,14 @@ client.commands = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
+// Update Members Method
+const updateMembers = (guild) => {
+    let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
+    client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
+
+    console.log(`[Faya's Plugins]: Detected ${humans} members`);
+}
+
 // Update Members
 client.on('ready', async message => {
     try {
@@ -21,12 +29,6 @@ client.on('ready', async message => {
        console.log(err); 
     }
 })
-const updateMembers = (guild) => {
-    let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
-    client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
-
-    console.log(`[Faya's Plugins]: Detected ${humans} members`);
-}
 
 // Welcome Message
 client.on('guildMemberAdd', member => {
@@ -99,12 +101,6 @@ client.on('messageCreate', message => {
         }    
     }
 })
-
-const maxMessageCount = 3;
-let lastStickyMessage = "";
-let messageCount = 0;
-let stickyMessageChannel = "937740840464433262";
-let stickyMessageContent = "This is a sticky message";
 
 // Sticky Message
 client.on('messageCreate', async message => {
