@@ -23,8 +23,6 @@ const updateMembers = (guild) => {
 client.on('ready', async message => {
     try {
         updateMembers(client.guilds.cache.get('844917410904670248'));
-
-
     } catch (err) {
        console.log(err); 
     }
@@ -32,25 +30,33 @@ client.on('ready', async message => {
 
 // Welcome Message
 client.on('guildMemberAdd', member => {
-    updateMembers(client.guilds.cache.get('844917410904670248'));
+    try {
+        updateMembers(client.guilds.cache.get('844917410904670248'));
 
-    // Give Member Role
-    member.roles.add(channelConfig.memberRoleId);
-
-    // Send Welcome Message
-    const welcomeMessage = new Discord.MessageEmbed()
-        .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-        .setDescription(`Welcome ${member}, enjoy your stay!`)
-        .setThumbnail(member.displayAvatarURL())
-        .setColor("RANDOM")
-        .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
-
-    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
-    channel.send({ embeds: [welcomeMessage] });
+        // Give Member Role
+        member.roles.add(channelConfig.memberRoleId);
+    
+        // Send Welcome Message
+        const welcomeMessage = new Discord.MessageEmbed()
+            .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
+            .setDescription(`Welcome ${member}, enjoy your stay!`)
+            .setThumbnail(member.displayAvatarURL())
+            .setColor("RANDOM")
+            .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
+    
+        const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
+        channel.send({ embeds: [welcomeMessage] });
+    } catch (err) {
+        console.log(err); 
+     }    
 })
 
 client.on('guildMemberRemove', member => {
-    updateMembers(client.guilds.cache.get('844917410904670248'));
+    try {
+        updateMembers(client.guilds.cache.get('844917410904670248'));
+    } catch (err) {
+       console.log(err); 
+    }
 })
 
 // Suggestion
