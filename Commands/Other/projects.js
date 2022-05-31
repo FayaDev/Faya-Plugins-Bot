@@ -13,6 +13,12 @@ module.exports = {
                         .setStyle("LINK")
                         .setURL("https://www.lcpdfr.com/profile/430106-faya/content/?type=downloads_file&change_section=1")
                 )
+                .addComponents(
+                    new MessageButton()
+                        .setLabel("⚒️ Progress Board")
+                        .setStyle("LINK")
+                        .setURL("https://trello.com/b/RPSQVgf8/projects")
+                )
 
             message.delete();
             message.channel.send({ components: [row] });
