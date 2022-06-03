@@ -111,7 +111,7 @@ client.on('messageCreate', message => {
 // Sticky Message
 client.on('messageCreate', async message => {
 
-    if (message.author.bot || message.channel.id == '972465245383704626') return;
+    if (message.author.bot || message.channel.id != '967816554945319022') return;
 
     const triggers = [ "help", "crash", "bug", "issue", "problem", "freeze" ];
 
