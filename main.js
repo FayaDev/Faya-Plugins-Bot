@@ -11,11 +11,13 @@ client.commands = new Discord.Collection();
     require(`./Handlers/${handler}`)(client, Discord);
 })
 
+let members = 0;
+
 // Update Members Method
 const updateMembers = (guild) => {
     let humans = guild.members.cache.filter(m => !m.user.bot).size.toLocaleString();
     client.user.setActivity(`${humans} members`, { type: 'WATCHING' }) 
-
+    members = humans;
     console.log(`[Faya's Plugins]: Detected ${humans} members`);
 }
 
@@ -31,21 +33,21 @@ client.on('ready', async message => {
 // Welcome Message
 client.on('guildMemberAdd', member => {
     try {
-        updateMembers(client.guilds.cache.get('844917410904670248'));
+        updateMembers(client.guilds.cache.get(channelConfig.guildId));
 
         // Give Member Role
         member.roles.add(channelConfig.memberRoleId);
-    
+
         // Send Welcome Message
-        const welcomeMessage = new Discord.MessageEmbed()
+        const welcomeMessage = new Discord.MessageEmbed()    
             .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-            .setDescription(`Welcome ${member}, enjoy your stay!`)
-            .setThumbnail(member.displayAvatarURL())
+            .setDescription(`Welcome ${member}, you brought us to ${members} members. Enjoy your stay!`)
             .setColor("RANDOM")
-            .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
-    
+            .setImage("https://cdn.discordapp.com/attachments/949374169299177552/989185078729007184/standard.gif")
+
         const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
         channel.send({ embeds: [welcomeMessage] });
+
     } catch (err) {
         console.log(err); 
      }    
