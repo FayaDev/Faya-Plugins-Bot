@@ -73,7 +73,7 @@ client.on('messageCreate', async message => {
             .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
             .setTitle(`Suggestion`)
             .setDescription(message.toString())
-            .setColor("#337fd5")
+            .setColor("#7289da")
             .addField("__Status:__ 📊", "Waiting for community feedback.")
             .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })    
 
