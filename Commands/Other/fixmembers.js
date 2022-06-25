@@ -20,14 +20,14 @@ module.exports = {
                     console.log(member.user.tag);
 
                     // Send Welcome Message
-                    const welcomeMessage = new MessageEmbed()
+                    const welcomeMessage = new Discord.MessageEmbed()    
                         .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
-                        .setDescription(`Welcome ${member}, enjoy your stay!`)
-                        .setThumbnail(member.displayAvatarURL())
+                        .setDescription(`Welcome ${member}, you brought us to ${members} members. Enjoy your stay!`)
                         .setColor("RANDOM")
-                        .setFooter({ text: member.guild.name, iconURL: member.guild.iconURL()})
+                        .setImage("https://cdn.discordapp.com/attachments/949374169299177552/989185078729007184/standard.gif")
 
-                    message.channel.send({ embeds: [welcomeMessage] });
+                    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
+                    channel.send({ embeds: [welcomeMessage] });
                 });
 
             });
