@@ -24,12 +24,13 @@ module.exports = {
                 .setFooter({ text: `User ID: ${message.author.id}` })
 
             message.channel.bulkDelete(amount).then(messages => {
+                
                 message.channel.send(`Deleted **${messages.size}** messages.`).then(msg => {setTimeout(() => msg.delete(), 3000)});
                 message.channel.send(`\n${message.author}, fill out an action report.`).then(msg => {setTimeout(() => msg.delete(), 5000)});
 
                 logEmbed.setDescription(`**Deleted Messages:** ${messages.size}\n**Channel:** ${message.channel}\n**Reason:** ${reason}`)
 
-                logChannel.send({ embeds: [logEmbed] })
+                if (!reason.startsWith('x')) { logChannel.send({ embeds: [logEmbed] }); }
             });
         } catch (err) {
            console.log(err); 
