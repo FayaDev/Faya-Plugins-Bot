@@ -20,7 +20,7 @@ module.exports = {
                     console.log(member.user.tag);
 
                     // Send Welcome Message
-                    const welcomeMessage = new Discord.MessageEmbed()    
+                    const welcomeMessage = new MessageEmbed()    
                         .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL() })
                         .setDescription(`Welcome ${member}, you brought us to ${members} members. Enjoy your stay!`)
                         .setColor("RANDOM")
