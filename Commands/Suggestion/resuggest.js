@@ -15,7 +15,7 @@ module.exports = {
                 .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
                 .setTitle("Suggestion")
                 .setDescription(customContent)
-                .setColor("#337fd5")
+                .setColor("#7289da")
                 .addField("__Status:__ 📊", "Waiting for community feedback.")
                 .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
