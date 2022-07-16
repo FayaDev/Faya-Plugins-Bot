@@ -24,7 +24,7 @@ module.exports = {
                 .setDescription(data.description)
                 .addField("__Status:__ 📊", "Waiting for community feedback.")
                 .addField(`__Note from ${message.author.username}:__`, `> ${note}`)
-                .setColor("#337fd5")
+                .setColor("#7289da")
                 .setFooter({ text: "Want to suggest something? Simply type it in this channel!" })
 
             message.delete();
