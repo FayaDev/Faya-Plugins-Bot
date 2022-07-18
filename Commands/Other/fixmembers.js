@@ -26,7 +26,7 @@ module.exports = {
                         .setColor("RANDOM")
                         .setImage("https://cdn.discordapp.com/attachments/949374169299177552/989185078729007184/standard.gif")
 
-                    const channel = member.guild.channels.cache.get(channelConfig.welcomeChannelId);
+                    const channel = member.guild.channels.cache.get('960134126189568042');
                     channel.send({ embeds: [welcomeMessage] });
                 });
 
